@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  tomcito:
+    container_name: tomcito
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: postgresdb
+      DB_PORT: 5432
+      DB_DATABASE: diplomado
+      DB_USERNAME: postgres
+      DB_PASSWORD: 123456
+
+  postgresdb:
+    container_name: postgresdb
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: diplomado
+    volumes:
+    - ./db_script.sql:/docker-entrypoint-initdb.d/db_script.sql
+
+  adminer:
+    container_name: adminer
+    image: adminer:4
+    restart: always
+    ports:
+      - 8081:8080

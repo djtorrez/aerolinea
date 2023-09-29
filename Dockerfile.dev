@@ -1,0 +1,23 @@
+FROM maven:3.9 AS constructor
+
+RUN mkdir -p /usr/src/mymaven/arquitectura
+
+WORKDIR /usr/src/mymaven/arquitectura
+
+COPY . .
+
+RUN mvn compile
+# RUN mvn package
+RUN mvn clean package
+
+FROM tomcat:9
+
+ENV DB_HOST=""
+ENV DB_PORT=""
+ENV DB_DATABASE=""
+ENV DB_USERNAME=""
+ENV DB_PASSWORD=""
+
+WORKDIR /usr/local/tomcat/webapps/
+
+COPY --from=constructor /usr/src/mymaven/arquitectura/target/arquitectura.war ./ROOT.war

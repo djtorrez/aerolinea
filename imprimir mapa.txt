@@ -1,0 +1,12 @@
+    public void imprimirMapa(Map<String, String[]> mapaDeParametros) {
+        mapaDeParametros.forEach((key, value) -> System.out.println(key + ":" + generarVector(value)));
+    }
+
+    public String generarVector(String[] vectorDeCadenas) {
+        StringBuilder cadena = new StringBuilder("[");
+        for (String cadenaActual : vectorDeCadenas) {
+            cadena.append(cadenaActual).append(", ");
+        }
+        cadena.append("]");
+        return cadena.toString();
+    }

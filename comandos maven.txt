@@ -1,0 +1,12 @@
+docker container create -p8080:8080 --name tomcitoweb tomcito:1
+docker start tomcitoweb
+
+
+para compilar el proyecto
+mvn compile
+
+para empaquetar la aplicacion
+mvn package
+
+para reempaquetar el proyecto
+mvn clean package
